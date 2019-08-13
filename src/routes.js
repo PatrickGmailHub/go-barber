@@ -11,6 +11,7 @@ import FileController from './app/controllers/FileController';
 import ProviderController from './app/controllers/ProviderController';
 
 import authMiddleware from './app/middlewares/auth';
+import AgendamentoController from './app/controllers/AgendamentoController';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -24,6 +25,8 @@ routes.use(authMiddleware);
 routes.put('/users', UserController.update);
 
 routes.get('/providers', ProviderController.index);
+
+routes.post('/agendamentos', AgendamentoController.store);
 
 // routes.post('/files', upload.single('file'), (req, res) => res.json({ ok: 'ok' }));
 // routes.post('/files', upload.single('file'), (req, res) => res.json(req.file));

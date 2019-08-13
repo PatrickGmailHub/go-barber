@@ -3,7 +3,7 @@ import Sequelize, { Model } from 'sequelize';
 class Agendamento extends Model {
   static init(sequelize) {
     super.init({
-      data: Sequelize.DATE,
+      date: Sequelize.DATE,
       canceled_at: Sequelize.DATE,
     },
     {

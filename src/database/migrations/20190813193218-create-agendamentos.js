@@ -9,8 +9,8 @@ module.exports = {
       primaryKey: true,
     },
     date: {
-      allowNull: false,
       type: Sequelize.DATE,
+      allowNull: false,
     },
     user_id: {
       type: Sequelize.INTEGER,
@@ -28,7 +28,6 @@ module.exports = {
     },
     canceled_at: {
       type: Sequelize.DATE,
-      allowNull: null,
     },
     created_at: {
       type: Sequelize.DATE,
