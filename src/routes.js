@@ -26,6 +26,7 @@ routes.put('/users', UserController.update);
 
 routes.get('/providers', ProviderController.index);
 
+routes.get('/agendamentos', AgendamentoController.index);
 routes.post('/agendamentos', AgendamentoController.store);
 
 // routes.post('/files', upload.single('file'), (req, res) => res.json({ ok: 'ok' }));
