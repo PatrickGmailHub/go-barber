@@ -12,6 +12,7 @@ import ProviderController from './app/controllers/ProviderController';
 
 import authMiddleware from './app/middlewares/auth';
 import AgendamentoController from './app/controllers/AgendamentoController';
+import AgendaProvedorController from './app/controllers/AgendaProvedorController';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -28,6 +29,8 @@ routes.get('/providers', ProviderController.index);
 
 routes.get('/agendamentos', AgendamentoController.index);
 routes.post('/agendamentos', AgendamentoController.store);
+
+routes.get('/agenda-provedores', AgendaProvedorController.index);
 
 // routes.post('/files', upload.single('file'), (req, res) => res.json({ ok: 'ok' }));
 // routes.post('/files', upload.single('file'), (req, res) => res.json(req.file));
