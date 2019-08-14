@@ -6,6 +6,9 @@ import File from '../models/File';
 
 class AgendamentoController {
   async index(req, res) {
+    // Paginação:
+    const { page = 1 } = req.query;
+
     const agendamentos = await Agendamento.findAll({
       where: {
         user_id: req.userId,
@@ -13,6 +16,8 @@ class AgendamentoController {
       },
       order: ['date'],
       attributes: ['id', 'date'],
+      limit: 5,
+      offset: (page - 1) * 5,
       include: [
         {
           model: User,
