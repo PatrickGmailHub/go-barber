@@ -1,4 +1,4 @@
-import { startOfDay, endOfDay } from 'date-fns';
+import { startOfDay, endOfDay, parseISO } from 'date-fns';
 import { Op } from 'sequelize';
 
 import Agendamento from '../models/Agendamento';
@@ -18,6 +18,7 @@ class AgendaProvedorController {
     }
 
     const { date } = req.query;
+    const parseDate = parseISO(date);
 
     const agendamentos = await Agendamento.findAll({
       where: {
@@ -25,8 +26,8 @@ class AgendaProvedorController {
         canceled_at: null,
         date: {
           [Op.between]: [
-            startOfDay(date),
-            endOfDay(date),
+            startOfDay(parseDate),
+            endOfDay(parseDate),
           ],
         },
       },
