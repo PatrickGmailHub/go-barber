@@ -1,8 +1,12 @@
 import * as Yup from 'yup';
-import { startOfHour, isBefore } from 'date-fns';
+import {
+  startOfHour, isBefore, format, parseISO,
+} from 'date-fns';
+import pt from 'date-fns/locale/pt';
 import User from '../models/User';
-import Agendamento from '../models/Agendamento';
 import File from '../models/File';
+import Agendamento from '../models/Agendamento';
+import Notification from '../schemas/Notifications';
 
 class AgendamentoController {
   async index(req, res) {
@@ -62,7 +66,7 @@ class AgendamentoController {
     /**
      * Checa se data e hora é válida p/ agendamento
      */
-    const hourStart = startOfHour(date);
+    const hourStart = startOfHour(parseISO(date));
 
     if (isBefore(hourStart, new Date())) {
       return res.status(400).json({ error: 'Data não permitida' });
@@ -87,6 +91,22 @@ class AgendamentoController {
       user_id: req.userId,
       provider_id,
       date,
+    });
+
+    /**
+     * Cria a notificação no banco NoSQL - mongoDB
+     * prestador de serviço
+     */
+    const user = await User.findByPk(req.userId);
+    const formattedDate = format(
+      hourStart,
+      "'dia' dd 'de' MMMM', ás' H:mm'h'",
+      { locale: pt },
+    );
+
+    await Notification.create({
+      content: `Novo agendamento de ${user.name} para ${formattedDate}`,
+      user: provider_id,
     });
 
     return res.json(agendamento);
